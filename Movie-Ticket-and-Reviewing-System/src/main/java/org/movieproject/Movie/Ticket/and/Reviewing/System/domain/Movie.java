@@ -2,6 +2,7 @@ package org.movieproject.Movie.Ticket.and.Reviewing.System.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.service.response.MovieResponse;
 
 import java.io.Serializable;
 import java.util.List;
@@ -32,6 +33,7 @@ public class Movie implements Serializable {
     private List<Review> reviews;
 
     public MovieResponse toMovieResponse() {
-        return MovieResponse.builder().genre(genre).title(this.title).rating(this.rating).build();
+        return MovieResponse.builder().genre(genre).title(this.title).rating(this.rating).reviews(Review.toReviewResponse(this.reviews)).build();
     }
+
 }
