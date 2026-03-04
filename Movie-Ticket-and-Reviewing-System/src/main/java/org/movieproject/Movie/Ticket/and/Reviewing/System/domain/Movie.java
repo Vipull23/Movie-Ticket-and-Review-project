@@ -2,6 +2,7 @@ package org.movieproject.Movie.Ticket.and.Reviewing.System.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.enums.Genre;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.service.response.MovieResponse;
 
 import java.io.Serializable;

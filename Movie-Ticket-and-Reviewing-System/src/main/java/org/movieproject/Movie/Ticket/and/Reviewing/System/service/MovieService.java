@@ -1,6 +1,6 @@
 package org.movieproject.Movie.Ticket.and.Reviewing.System.service;
 
-import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Genre;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.enums.Genre;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Movie;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.MovieRepository;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.service.response.MovieResponse;

@@ -1,6 +1,9 @@
 package org.movieproject.Movie.Ticket.and.Reviewing.System.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Ticket;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.exception.NotFoundException;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.ShowRepository;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.TicketRepository;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.UserRepository;

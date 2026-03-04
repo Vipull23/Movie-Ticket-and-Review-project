@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Genre;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.enums.Genre;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Movie;
 
 @Getter

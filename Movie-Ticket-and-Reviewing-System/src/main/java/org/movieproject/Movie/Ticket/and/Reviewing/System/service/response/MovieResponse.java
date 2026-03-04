@@ -1,7 +1,7 @@
 package org.movieproject.Movie.Ticket.and.Reviewing.System.service.response;
 
 import lombok.*;
-import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Genre;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.enums.Genre;
 
 import java.util.List;
 
