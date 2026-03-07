@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.resource.BookingResource;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.resource.TicketResource;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

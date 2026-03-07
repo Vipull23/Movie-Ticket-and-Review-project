@@ -1,5 +1,6 @@
 package org.movieproject.Movie.Ticket.and.Reviewing.System.repository;
 
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Show;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

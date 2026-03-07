@@ -2,11 +2,11 @@ package org.movieproject.Movie.Ticket.and.Reviewing.System.resource;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 import tools.jackson.databind.annotation.JsonDeserialize;
 import tools.jackson.databind.annotation.JsonSerialize;
 import tools.jackson.databind.ext.javatime.deser.LocalDateDeserializer;
 import tools.jackson.databind.ext.javatime.ser.LocalDateTimeSerializer;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,9 +35,9 @@ public class ShowResource {
     @NotNull(message = "Theater is Mandatory for Show")
     private Long theaterId;
 
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     private MovieResource movieResource;
 

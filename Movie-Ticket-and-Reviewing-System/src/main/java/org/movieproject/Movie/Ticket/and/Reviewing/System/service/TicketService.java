@@ -8,22 +8,28 @@ import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.ShowReposit
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.TicketRepository;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.UserRepository;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.resource.BookingResource;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.resource.TicketMessage;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.resource.TicketResource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.CollectionUtils;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Service;
-import tools.jackson.databind.ObjectMapper;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.User;
 
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.ShowSeat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Show;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Service
+@Slf4j
 public class TicketService {
 
     @Autowired
@@ -57,7 +63,7 @@ public class TicketService {
 
         Set<String> requestedSeats = bookingResource.getSeatsNumbers();
 
-        List<ShowSeats> showSeatsEntities = optionalShow.get().getSeats();
+        List<ShowSeat> showSeatsEntities = optionalShow.get().getSeats();
 
         showSeatsEntities = showSeatsEntities
                 .stream()
@@ -81,7 +87,7 @@ public class TicketService {
 
         for (ShowSeat seatsEntity : showSeatsEntities) {
             seatsEntity.setBooked(true);
-            seatsEntity.setBookedAt(new Date());
+            seatsEntity.setBookedAt(LocalDateTime.now());
             seatsEntity.setTicket(ticket);
 
             amount += seatsEntity.getRate();
@@ -96,7 +102,7 @@ public class TicketService {
             optionalUser.get().setTicketEntities(new ArrayList<>());
         }
 
-        optionalUser.get().getTicketEntitie().add(ticket);
+        optionalUser.get().getTicketEntities().add(ticket);
 
         if (CollectionUtils.isEmpty(optionalShow.get().getTickets())) {
             optionalShow.get().setTickets(new ArrayList<>());
@@ -107,14 +113,14 @@ public class TicketService {
         ticket = ticketRepository.save(ticket);
 
         try {
-            TicketMessage message = new TicketMessage(ticket.getUser.getName(), ticket.getUser().getMobile(), ticket.getUser().getEmail(), ticket.getShow(), ticket.getSeats());
+            TicketMessage message = new TicketMessage(ticket.getUser().getName(), ticket.getUser().getMobile(), ticket.getUser().getEmail(), ticket.getShow(), ticket.getSeats());
             log.info("sending kafka message on booking {}", mapper.writeValueAsString(message));
             kafkaTemplate.send(topic, mapper.writeValueAsString(message));
         } catch (Exception e) {
             log.error("Exception while sending notification service");
         }
 
-        return Ticket.toResouce(ticket);
+        return Ticket.toResource(ticket);
     }
 
     public TicketResource getTickets(long id) {
@@ -125,6 +131,6 @@ public class TicketService {
             throw new EntityNotFoundException("Ticket not found with ID: " + id);
         }
 
-        return Ticket.toResoucre(ticketEntity.get());
+        return Ticket.toResource(ticketEntity.get());
     }
 }

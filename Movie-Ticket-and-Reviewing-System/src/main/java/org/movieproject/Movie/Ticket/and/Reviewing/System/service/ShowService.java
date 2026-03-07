@@ -2,7 +2,11 @@ package org.movieproject.Movie.Ticket.and.Reviewing.System.service;
 
 
 import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Movie;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Show;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.MovieRepository;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.ShowRepository;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.ShowSeatsRepository;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.TheaterRepository;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.resource.ShowResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +28,7 @@ public class ShowService {
     Logger log = LoggerFactory.getLogger(ShowService.class);
 
     @Autowired
-    private ShowRespository showRespository;
+    private ShowRepository showRepository;
 
     @Autowired
     private MovieRepository movieRepository;
@@ -33,7 +37,7 @@ public class ShowService {
     private TheaterRepository theaterRepository;
 
     @Autowired
-    private ShowSeatsRespository showSeatsRespository;
+    private ShowSeatsRepository showSeatsRepository;
 
     public ShowService() {
     }
