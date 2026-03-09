@@ -2,6 +2,7 @@ package org.movieproject.Movie.Ticket.and.Reviewing.System.resource;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -18,7 +19,7 @@ public class TicketResource {
 
     private double amount;
 
-    private Date bookedAt;
+    private LocalDateTime bookedAt;
 
     private ShowResource show;
 }

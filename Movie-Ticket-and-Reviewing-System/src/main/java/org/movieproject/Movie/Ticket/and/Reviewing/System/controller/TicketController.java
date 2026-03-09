@@ -27,6 +27,6 @@ public class TicketController {
     @GetMapping("{id}")
     public ResponseEntity<TicketResource> getTicket(@PathVariable(name = "id") @Min(value = 1, message = "Ticket Id cannot be negative") long id) {
         log.info("Received Request to get ticket: " + id);
-        return ResponseEntity.ok(ticketService.getTicket(id));
+        return ResponseEntity.ok(ticketService.getTickets(id));
     }
 }

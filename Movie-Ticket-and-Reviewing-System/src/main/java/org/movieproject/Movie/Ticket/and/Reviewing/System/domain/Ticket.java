@@ -11,9 +11,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,9 +39,8 @@ public class Ticket {
 
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "booked_at", nullable = false)
-    private Date bookedAt;
+    private LocalDateTime bookedAt;
 
     @ManyToOne
     @JsonIgnore
@@ -51,7 +50,7 @@ public class Ticket {
     @JsonIgnore
     private Show show;
 
-    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ShowSeat> seats;
 

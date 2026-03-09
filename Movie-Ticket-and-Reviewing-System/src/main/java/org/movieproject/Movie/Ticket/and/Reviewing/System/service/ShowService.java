@@ -1,8 +1,11 @@
 package org.movieproject.Movie.Ticket.and.Reviewing.System.service;
 
-
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.ShowSeat;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.TheaterSeats;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Movie;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Show;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.domain.Theater;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.exception.NotFoundException;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.MovieRepository;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.ShowRepository;
 import org.movieproject.Movie.Ticket.and.Reviewing.System.repository.ShowSeatsRepository;
@@ -47,18 +50,18 @@ public class ShowService {
 
         Optional<Movie> optionalMovie = movieRepository.findById(showResource.getMovieId());
 
-//        if (!optionalMovie.isPresent()) {
-//            throw new NotFoundException("Movie Not Found with ID: " + showResource.getMovieId() + " to add New Movie");
-//        }
+        if (!optionalMovie.isPresent()) {
+            throw new NotFoundException("Movie Not Found with ID: " + showResource.getMovieId() + " to add New Movie");
+        }
 
-        Movie movie = movieRepository.findById(showResource.getMovieId())
-                .orElseThrow(() ->
-                        new ChangeSetPersister.NotFoundException("Movie Not Found with ID: " + showResource.getMovieId() + " to add New Show"));
+//        Movie movie = movieRepository.findById(showResource.getMovieId())
+//                .orElseThrow(() ->
+//                        new ChangeSetPersister.NotFoundException("Movie Not Found with ID: " + showResource.getMovieId() + " to add New Show"));
 
         Optional<Theater> optionalTheater = theaterRepository.findById(showResource.getTheaterId());
 
         if (!optionalTheater.isPresent()) {
-            throw new ChangeSetPersister.NotFoundException("Theater Not Found with the ID: " + showResource.getTheaterId() + " to add");
+            throw new NotFoundException("Theater Not Found with the ID: " + showResource.getTheaterId() + " to add");
         }
 
         log.info("Adding New Show: " + showResource);
@@ -73,7 +76,7 @@ public class ShowService {
             seatsEntity.setShow(show);
         }
 
-        show = showRespository.save(show);
+        show = showRepository.save(show);
 
         return Show.toResource(show);
     }
@@ -94,7 +97,7 @@ public class ShowService {
             showSeatsEntities.add(showSeat);
         }
 
-        return showSeatsRespository.saveAll(showSeatsEntities);
+        return showSeatsRepository.saveAll(showSeatsEntities);
     }
 
     public List<ShowResource> searchShows(String movieName, String cityName, String theaterName) {
@@ -103,11 +106,11 @@ public class ShowService {
             new ArrayList<>();
         List<Show> shows = new ArrayList<>();
         if (StringUtils.hasText(movieName))
-            shows = showsRespository.findByMovieNameAndCity(movieName, cityName);
+            shows = showRepository.findByMovieNameAndCity(movieName, cityName);
         else if (StringUtils.hasText(theaterName)) {
-            shows = showRespository.findByTheaterAndCity(theaterName, cityName);
+            shows = showRepository.findByTheaterAndCity(theaterName, cityName);
         } else {
-            shows = showRespository.findByCity(cityName);
+            shows = showRepository.findByCity(cityName);
         }
 
         if (CollectionUtils.isEmpty(shows))

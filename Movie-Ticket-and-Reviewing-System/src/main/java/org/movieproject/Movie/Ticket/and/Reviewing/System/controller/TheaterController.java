@@ -19,8 +19,9 @@ public class TheaterController {
     @GetMapping("/search")
     public ResponseEntity<List<ShowResource>> search(
             @RequestParam(name = "city", required = true) String cityName,
-            @RequestParam(name = "movieName", required = false) String movieName) {
-        return ResponseEntity.ok(showService.searchShows(movieName, cityName));
+            @RequestParam(name = "movieName", required = false) String movieName,
+            @RequestParam(name = "theaterName", required = false) String theaterName){
+        return ResponseEntity.ok(showService.searchShows(movieName, cityName, theaterName));
     }
 
     @PostMapping("/add")
