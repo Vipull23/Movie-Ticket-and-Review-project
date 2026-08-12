@@ -1,32 +1,25 @@
 package org.movieproject.Movie.Ticket.and.Reviewing.System.controller;
 
-import org.movieproject.Movie.Ticket.and.Reviewing.System.resource.ShowResource;
-import org.movieproject.Movie.Ticket.and.Reviewing.System.service.ShowService;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.resource.TheaterResource;
+import org.movieproject.Movie.Ticket.and.Reviewing.System.service.TheaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@RestController
+@RequestMapping("/theater")
 public class TheaterController {
 
     @Autowired
-    private ShowService showService;
-
-    @GetMapping("/search")
-    public ResponseEntity<List<ShowResource>> search(
-            @RequestParam(name = "city", required = true) String cityName,
-            @RequestParam(name = "movieName", required = false) String movieName,
-            @RequestParam(name = "theaterName", required = false) String theaterName){
-        return ResponseEntity.ok(showService.searchShows(movieName, cityName, theaterName));
-    }
+    private TheaterService theaterService;
 
     @PostMapping("/add")
-    public ResponseEntity<ShowResource> addShow(@RequestBody ShowResource showResource) {
-        showService.addShow(showResource);
-        return ResponseEntity.ok(showResource);
+    public ResponseEntity<TheaterResource> addTheater(@RequestBody TheaterResource theaterResource) {
+        return ResponseEntity.ok(theaterService.addTheater(theaterResource));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TheaterResource> getTheater(@PathVariable long id) {
+        return ResponseEntity.ok(theaterService.getTheater(id));
     }
 }
